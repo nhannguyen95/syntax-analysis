@@ -1,0 +1,159 @@
+Input:
+E-E+T|T
+T-T*F|F
+F-(E)|id
+id*(id+id)
+
+Convert to map array
+[E] - [E][+][T]
+[E] - [T]
+[F] - [(][E][)]
+[F] - [id]
+[T] - [T][*][F]
+[T] - [F]
+[id][*][(][id][+][id][)]
+
+Van pham gia to
+[E] - [E][+][T]
+[E] - [T]
+[E'] - [E]
+[F] - [(][E][)]
+[F] - [id]
+[T] - [T][*][F]
+[T] - [F]
+
+I0 = goto(null)
+[E] - [.][E][+][T]
+[E] - [.][T]
+[E'] - [.][E]
+[F] - [.][(][E][)]
+[F] - [.][id]
+[T] - [.][T][*][F]
+[T] - [.][F]
+
+I1 = goto(0, ()
+[E] - [.][E][+][T]
+[E] - [.][T]
+[F] - [(][.][E][)]
+[F] - [.][(][E][)]
+[F] - [.][id]
+[T] - [.][T][*][F]
+[T] - [.][F]
+
+I2 = goto(0, E)
+[E] - [E][.][+][T]
+[E'] - [E][.]
+
+I3 = goto(0, F)
+[T] - [F][.]
+
+I4 = goto(0, T)
+[E] - [T][.]
+[T] - [T][.][*][F]
+
+I5 = goto(0, id)
+[F] - [id][.]
+
+I6 = goto(1, E)
+[E] - [E][.][+][T]
+[F] - [(][E][.][)]
+
+I7 = goto(2, +)
+[E] - [E][+][.][T]
+[F] - [.][(][E][)]
+[F] - [.][id]
+[T] - [.][T][*][F]
+[T] - [.][F]
+
+I8 = goto(4, *)
+[F] - [.][(][E][)]
+[F] - [.][id]
+[T] - [T][*][.][F]
+
+I9 = goto(6, ))
+[F] - [(][E][)][.]
+
+I10 = goto(7, T)
+[E] - [E][+][T][.]
+[T] - [T][.][*][F]
+
+I11 = goto(8, F)
+[T] - [T][*][F][.]
+
+Follow
+E: $ ) + 
+F: $ ) * + 
+T: $ ) * + 
+
+Action table
+0 ( S1
+0 id S5
+1 ( S1
+1 id S5
+2 $ accept
+2 + S7
+3 $ RF
+3 ) RF
+3 * RF
+3 + RF
+4 $ RT
+4 ) RT
+4 * S8
+4 + RT
+5 $ Rid
+5 ) Rid
+5 * Rid
+5 + Rid
+6 ) S9
+6 + S7
+7 ( S1
+7 id S5
+8 ( S1
+8 id S5
+9 $ R(E)
+9 ) R(E)
+9 * R(E)
+9 + R(E)
+10 $ RE+T
+10 ) RE+T
+10 * S8
+10 + RE+T
+11 $ RT*F
+11 ) RT*F
+11 * RT*F
+11 + RT*F
+
+Goto table
+0 E 2
+0 F 3
+0 T 4
+1 E 6
+1 F 3
+1 T 4
+7 F 3
+7 T 10
+8 F 11
+
+
+Detail steps
+0.  $ 0                             id*(id+id)$               0 S5 id              D/c
+1.  $ 0 id 5                          *(id+id)$               5 Rid *     
+2.  $ 0 F 3                           *(id+id)$               3 RF *     
+3.  $ 0 T 4                           *(id+id)$               4 S8 *               D/c
+4.  $ 0 T 4 * 8                        (id+id)$               8 S1 (               D/c
+5.  $ 0 T 4 * 8 ( 1                     id+id)$               1 S5 id              D/c
+6.  $ 0 T 4 * 8 ( 1 id 5                  +id)$               5 Rid +     
+7.  $ 0 T 4 * 8 ( 1 F 3                   +id)$               3 RF +     
+8.  $ 0 T 4 * 8 ( 1 T 4                   +id)$               4 RT +     
+9.  $ 0 T 4 * 8 ( 1 E 6                   +id)$               6 S7 +               D/c
+10. $ 0 T 4 * 8 ( 1 E 6 + 7                id)$               7 S5 id              D/c
+11. $ 0 T 4 * 8 ( 1 E 6 + 7 id 5             )$               5 Rid )     
+12. $ 0 T 4 * 8 ( 1 E 6 + 7 F 3              )$               3 RF )     
+13. $ 0 T 4 * 8 ( 1 E 6 + 7 T 10             )$              10 RE+T )     
+14. $ 0 T 4 * 8 ( 1 E 6                      )$               6 S9 )               D/c
+15. $ 0 T 4 * 8 ( 1 E 6 ) 9                   $               9 R(E) $     
+16. $ 0 T 4 * 8 F 11                          $              11 RT*F $     
+17. $ 0 T 4                                   $               4 RT $     
+18. $ 0 E 2                                   $               2 accept $               Accepted!
+
+YES

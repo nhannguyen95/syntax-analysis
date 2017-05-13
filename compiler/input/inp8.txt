@@ -1,0 +1,3 @@
+S-AS|b
+A-SA|a
+x-a b

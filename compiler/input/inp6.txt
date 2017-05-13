@@ -1,0 +1,4 @@
+A-AorB|B
+B-BandC|C
+C-notC|(A)|true|false
+x-true and false or (not true)

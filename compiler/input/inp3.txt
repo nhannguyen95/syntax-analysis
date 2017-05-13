@@ -1,0 +1,9 @@
+S-A C D
+C-var ID: K;
+L-write(ID)|read(ID)
+N-5
+A-const ID=N;
+D-begin L end.
+ID-a|b
+K-byte|real
+x-const a=5; var b: byte; begin read(b) end.

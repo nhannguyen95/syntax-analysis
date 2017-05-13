@@ -1,0 +1,5 @@
+S-id=A
+A-A+B|B
+B-B*C|C
+C-id|(A)
+x-id=id+id*id

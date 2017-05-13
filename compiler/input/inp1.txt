@@ -1,0 +1,5 @@
+S-if DK then L;
+DK-true|false
+L-write(ID)|read(ID)
+ID-a|b
+x-if true then read(a);

@@ -1,0 +1,8 @@
+S-C;H
+C-const ID=N
+ID-a|b|c
+N-5
+H-type ID=A var B
+A-byte;|real;
+B-ID:A
+x-const a=5;type b=byte; var c:real;
